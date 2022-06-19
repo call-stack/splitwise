@@ -5,7 +5,7 @@
 
 ## Setup
 - Run docker compose \
-  ```docker compose up --build```
+  ```docker compose up```
  
 This will start 2 container:
 - postgres: Port 5432
