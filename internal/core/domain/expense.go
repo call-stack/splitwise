@@ -1,13 +1,13 @@
 package domain
 
 type Expense struct {
-	ID               int
-	UserID           int `json:"paid_by"`
-	Category         string
-	IsExpenseSettled bool `json:"is_expense_settled"`
-	Amount           float32
-	PaidTo           []int `json:"paid_to,omitempty"`
-	Gid              int   `json:"gid,omitempty"`
+	ID               int     `json:"id"`
+	UserID           int     `json:"paid_by"`
+	Category         string  `json:"category"`
+	IsExpenseSettled bool    `json:"is_expense_settled"`
+	Amount           float32 `json:"amount"`
+	PaidTo           []int   `json:"paid_to,omitempty"`
+	Gid              int     `json:"gid,omitempty"`
 }
 
 type ExpenseEntity struct {

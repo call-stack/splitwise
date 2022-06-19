@@ -147,8 +147,25 @@ func (h *HttpHandler) GroupExpense(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *HttpHandler) ViewRecord(w http.ResponseWriter, r *http.Request) {
+func (h *HttpHandler) ViewExpense(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var expense domain.Expense
+	err := json.NewDecoder(r.Body).Decode(&expense)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
+	exp, err := h.Srv.ViewExpense(expense.ID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err = json.NewEncoder(w).Encode(exp)
+	if err != nil {
+		return
+	}
 }
 
 func (h *HttpHandler) Summary(w http.ResponseWriter, r *http.Request) {
@@ -169,6 +186,20 @@ func (h *HttpHandler) Summary(w http.ResponseWriter, r *http.Request) {
 	err = json.NewEncoder(w).Encode(summ)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+
+	}
+}
+
+func (h *HttpHandler) GetAllUnsettledExpenses(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	expense, err := h.Srv.GetAllUnSettledExpense()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
+	}
+
+	err = json.NewEncoder(w).Encode(expense)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 }

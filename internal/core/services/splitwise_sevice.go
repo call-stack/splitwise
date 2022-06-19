@@ -15,7 +15,6 @@ type Service struct {
 
 func (s *Service) AddUser(name, phoneNumber, email string) (domain.User, error) {
 	err := validation.Errors{
-		"amount":       validation.Validate(name, validation.Required, validation.Length(5, 50)),
 		"phone_number": validation.Validate(phoneNumber, validation.Required, validation.By(validatePhoneNumber())),
 		"email":        validation.Validate(email, validation.Required, is.Email),
 	}.Filter()
@@ -121,6 +120,10 @@ func (s *Service) UpdateExpense(txnID int, amount float32) (domain.Expense, erro
 		return domain.Expense{}, err
 	}
 
+	if expenseEntity.IsExpenseSettled {
+		return domain.Expense{}, fmt.Errorf(core.CannotModifySettledExpense)
+	}
+
 	userExpense, err := s.repo.GetUIDs(expenseEntity.ID)
 	if err != nil {
 		return domain.Expense{}, err
@@ -221,8 +224,31 @@ func (s *Service) Summary(uid int) (domain.Summary, error) {
 }
 
 func (s *Service) ViewExpense(txnID int) (domain.Expense, error) {
-	_, err := s.repo.GetExpense(txnID)
-	return domain.Expense{}, err
+	exp, err := s.repo.GetExpense(txnID)
+	if err != nil {
+		return domain.Expense{}, err
+	}
+
+	userIds, err := s.repo.GetUIDs(exp.ID)
+	if err != nil {
+		return domain.Expense{}, err
+	}
+
+	splitsIDs := make([]int, 0)
+	for _, u := range userIds {
+		if u.UID != exp.UserID {
+			splitsIDs = append(splitsIDs, u.UID)
+		}
+	}
+
+	return domain.Expense{
+		ID:               exp.ID,
+		UserID:           exp.UserID,
+		Category:         exp.Category,
+		IsExpenseSettled: exp.IsExpenseSettled,
+		Amount:           exp.Amount,
+		PaidTo:           splitsIDs,
+	}, nil
 }
 
 func New(repo port.SplitwiseRepo) *Service {
@@ -262,4 +288,24 @@ func (s *Service) NewGroupExpense(paidByUserID int, groupID int, category string
 	}
 
 	return expense, nil
+}
+
+func (s *Service) GetAllUnSettledExpense() ([]*domain.Expense, error) {
+	expense, err := s.repo.GetAllUnSettledExpense()
+	var exp []*domain.Expense
+	if err != nil {
+		return exp, err
+	}
+	for _, e := range expense {
+		ex := &domain.Expense{
+			ID:               e.ID,
+			UserID:           e.UserID,
+			Category:         e.Category,
+			IsExpenseSettled: e.IsExpenseSettled,
+			Amount:           e.Amount,
+		}
+
+		exp = append(exp, ex)
+	}
+	return exp, err
 }

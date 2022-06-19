@@ -184,3 +184,12 @@ func (r *Repo) SettleExpense(expense domain.ExpenseEntity, summary []domain.Summ
 	})
 	return expense, err
 }
+func (r *Repo) GetAllUnSettledExpense() ([]*domain.ExpenseEntity, error) {
+	var expenses []*domain.ExpenseEntity
+	if err := r.db.Table(core.ExpenseTable).Where("is_expense_settled", false).Find(&expenses).Error; err != nil {
+		return expenses, err
+	}
+
+	return expenses, nil
+
+}

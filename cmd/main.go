@@ -19,8 +19,9 @@ func main() {
 	r.HandleFunc("/expense", hdl.ModifyTransaction).Methods("PATCH")
 	r.HandleFunc("/settle", hdl.SettleExpense).Methods("POST")
 	r.HandleFunc("/group_expense", hdl.GroupExpense).Methods("POST")
-	r.HandleFunc("/viewRecord", hdl.ViewRecord).Methods("GET")
+	r.HandleFunc("/view_expense", hdl.ViewExpense).Methods("GET")
 	r.HandleFunc("/summary", hdl.Summary).Methods("GET")
+	r.HandleFunc("/all_unsettled", hdl.GetAllUnsettledExpenses).Methods("GET")
 	http.ListenAndServe("127.0.0.1:8080", r)
 
 }

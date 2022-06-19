@@ -11,4 +11,5 @@ type SplitwiseService interface {
 	ViewExpense(expenseID int) (domain.Expense, error)
 	Summary(uid int) (domain.Summary, error)
 	NewGroupExpense(paidByUserID int, groupID int, category string, amount float32) (domain.Expense, error)
+	GetAllUnSettledExpense() ([]*domain.Expense, error)
 }

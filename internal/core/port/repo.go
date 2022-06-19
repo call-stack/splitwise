@@ -12,4 +12,5 @@ type SplitwiseRepo interface {
 	GetSummary(uid int) (domain.Summary, error)
 	GetGroupUsers(gid int) ([]int, error)
 	SettleExpense(transaction domain.ExpenseEntity, summary []domain.Summary) (domain.ExpenseEntity, error)
+	GetAllUnSettledExpense() ([]*domain.ExpenseEntity, error)
 }
