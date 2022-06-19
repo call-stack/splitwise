@@ -1,0 +1,424 @@
+openapi: 3.0.1
+info:
+  title: defaultTitle
+  description: defaultDescription
+  version: '0.1'
+servers:
+  - url: http://127.0.0.1:8080
+paths:
+  /all_unsettled:
+    get:
+      description: Auto generated using Swagger Inspector
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                '0':
+                  value: >
+                    [{"id":2,"paid_by":2,"category":"books","is_expense_settled":false,"amount":2400},{"id":1,"paid_by":1,"category":"shop","is_expense_settled":false,"amount":1600}]
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /group_expense:
+    post:
+      description: Auto generated using Swagger Inspector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gid:
+                  type: integer
+                Amount:
+                  type: integer
+                paid_by:
+                  type: integer
+                category:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "paid_by":2,
+                      "category":"books",
+                      "Amount":2400,
+                      "gid":1
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: integer
+                  paid_to:
+                    type: array
+                    items:
+                      type: integer
+                  is_expense_settled:
+                    type: boolean
+                  id:
+                    type: integer
+                  paid_by:
+                    type: integer
+                  category:
+                    type: string
+              examples:
+                '0':
+                  value: >
+                    {"id":2,"paid_by":2,"category":"books","is_expense_settled":false,"amount":2400,"paid_to":[1,3]}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /view_expense/1:
+    get:
+      description: Auto generated using Swagger Inspector
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: integer
+                  paid_to:
+                    type: array
+                    items:
+                      type: integer
+                  is_expense_settled:
+                    type: boolean
+                  id:
+                    type: integer
+                  paid_by:
+                    type: integer
+                  category:
+                    type: string
+              examples:
+                '0':
+                  value: >
+                    {"id":1,"paid_by":1,"category":"shop","is_expense_settled":false,"amount":1600,"paid_to":[2,3]}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /group:
+    post:
+      description: Auto generated using Swagger Inspector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                userid:
+                  type: array
+                  items:
+                    type: integer
+            examples:
+              '0':
+                value: |-
+                  {
+                      "name":"testgroup",
+                      "userid":[1, 2, 3]
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: integer
+                  userid:
+                    type: array
+                    items:
+                      type: integer
+              examples:
+                '0':
+                  value: |
+                    {"id":1,"name":"testgroup","userid":[1,2,3]}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /expense:
+    post:
+      description: Auto generated using Swagger Inspector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                Amount:
+                  type: integer
+                paid_to:
+                  type: array
+                  items:
+                    type: integer
+                id:
+                  type: integer
+                paid_by:
+                  type: integer
+                category:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "id":1,
+                      "amount":1600
+                  }
+              '1':
+                value: |-
+                  {
+                      "paid_by": 1,
+                      "category":"shop",
+                      "Amount":1400,
+                      "paid_to":[2, 3]
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: integer
+                  paid_to:
+                    type: array
+                    items:
+                      type: integer
+                  is_expense_settled:
+                    type: boolean
+                  id:
+                    type: integer
+                  paid_by:
+                    type: integer
+                  category:
+                    type: string
+              examples:
+                '0':
+                  value: >
+                    {"id":1,"paid_by":1,"category":"shop","is_expense_settled":false,"amount":1400,"paid_to":[2,3]}
+      servers:
+        - url: http://127.0.0.1:8080
+    patch:
+      description: Auto generated using Swagger Inspector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                Amount:
+                  type: integer
+                paid_to:
+                  type: array
+                  items:
+                    type: integer
+                id:
+                  type: integer
+                paid_by:
+                  type: integer
+                category:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "id":1,
+                      "amount":1600
+                  }
+              '1':
+                value: |-
+                  {
+                      "paid_by": 1,
+                      "category":"shop",
+                      "Amount":1400,
+                      "paid_to":[2, 3]
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: integer
+                  paid_to:
+                    type: array
+                    items:
+                      type: integer
+                  is_expense_settled:
+                    type: boolean
+                  id:
+                    type: integer
+                  paid_by:
+                    type: integer
+                  category:
+                    type: string
+              examples:
+                '0':
+                  value: >
+                    {"id":1,"paid_by":1,"category":"shop","is_expense_settled":false,"amount":1600,"paid_to":[2,3]}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /user:
+    post:
+      description: Auto generated using Swagger Inspector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_id:
+                  type: string
+                name:
+                  type: string
+                phone_number:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "name":"rahul",
+                      "phone_number":"1238965135",
+                      "email_id":"s15@example.com"
+                  }
+              '1':
+                value: |-
+                  {
+                      "name":"vipul",
+                      "phone_number":"1239965135",
+                      "email_id":"s14@example.com"
+                  }
+              '2':
+                value: |-
+                  {
+                      "name":"kalpit",
+                      "phone_number":"1139965135",
+                      "email_id":"s12@example.com"
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email_id:
+                    type: string
+                  name:
+                    type: string
+                  phone_number:
+                    type: string
+                  id:
+                    type: integer
+              examples:
+                '0':
+                  value: >
+                    {"id":3,"name":"rahul","phone_number":"1238965135","email_id":"s15@example.com"}
+                '1':
+                  value: >
+                    {"id":2,"name":"vipul","phone_number":"1239965135","email_id":"s14@example.com"}
+                '2':
+                  value: >
+                    {"id":1,"name":"kalpit","phone_number":"1139965135","email_id":"s12@example.com"}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /settle:
+    post:
+      description: Auto generated using Swagger Inspector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+            examples:
+              '0':
+                value: |-
+                  {
+                      "id":1
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: integer
+                  paid_to:
+                    type: array
+                    items:
+                      type: integer
+                  is_expense_settled:
+                    type: boolean
+                  id:
+                    type: integer
+                  paid_by:
+                    type: integer
+                  category:
+                    type: string
+              examples:
+                '0':
+                  value: >
+                    {"id":1,"paid_by":1,"category":"shop","is_expense_settled":true,"amount":1600,"paid_to":[2,3]}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080
+  /summary/1:
+    get:
+      description: Auto generated using Swagger Inspector
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: http://127.0.0.1:8080
+    servers:
+      - url: http://127.0.0.1:8080

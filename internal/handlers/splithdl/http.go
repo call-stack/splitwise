@@ -3,9 +3,11 @@ package splithdl
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 	"splitwise/internal/core/domain"
 	"splitwise/internal/core/port"
+	"strconv"
 )
 
 type HttpHandler struct {
@@ -149,14 +151,12 @@ func (h *HttpHandler) GroupExpense(w http.ResponseWriter, r *http.Request) {
 
 func (h *HttpHandler) ViewExpense(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var expense domain.Expense
-	err := json.NewDecoder(r.Body).Decode(&expense)
+	stringId := mux.Vars(r)["id"]
+	id, err := strconv.Atoi(stringId)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	exp, err := h.Srv.ViewExpense(expense.ID)
+	exp, err := h.Srv.ViewExpense(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -170,14 +170,13 @@ func (h *HttpHandler) ViewExpense(w http.ResponseWriter, r *http.Request) {
 
 func (h *HttpHandler) Summary(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var summary domain.Summary
-	err := json.NewDecoder(r.Body).Decode(&summary)
+	stringId := mux.Vars(r)["id"]
+	id, err := strconv.Atoi(stringId)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	summ, err := h.Srv.Summary(summary.ID)
+	summ, err := h.Srv.Summary(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
