@@ -3,7 +3,7 @@
 
 ---
 
-##Setup
+## Setup
 - Run docker compose \
   ```docker compose up --build```
  
@@ -13,7 +13,7 @@ This will start 2 container:
 
 ---
 
-##Endpoints
+## Endpoints
 - Add user
   - Method: POST, Endpoint: 127.0.0.1:8080/user
   - request body: \
