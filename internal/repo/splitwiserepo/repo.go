@@ -1,9 +1,11 @@
 package splitwiserepo
 
 import (
+	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"os"
 	"splitwise/internal/core"
 	"splitwise/internal/core/domain"
 )
@@ -13,7 +15,9 @@ type Repo struct {
 }
 
 func NewRepo() *Repo {
-	dbURL := "postgresql://postgres:password@localhost:5431/splitwise"
+	username, password, dbname, host := os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"), os.Getenv("DATABASE_HOST")
+	fmt.Println(username, password, dbname, host)
+	dbURL := fmt.Sprintf("postgresql://%v:%v@%v:5432/%v", username, password, host, dbname)
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 	if err != nil {
 		log.Fatalln(err)
