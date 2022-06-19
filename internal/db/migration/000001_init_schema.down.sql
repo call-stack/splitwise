@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS users ;
+DROP TABLE IF EXISTS groups ;
+DROP TABLE IF EXISTS expense ;
+DROP TABLE IF EXISTS user_group ;
+DROP TABLE IF EXISTS user_expense ;
+DROP TABLE IF EXISTS summary ;
