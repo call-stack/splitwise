@@ -2,6 +2,15 @@
 set -e
 export PGPASSWORD=$POSTGRES_PASSWORD;
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+
+  DROP TABLE IF EXISTS summary ;
+  DROP TABLE IF EXISTS user_expense ;
+  DROP TABLE IF EXISTS expense ;
+  DROP TABLE IF EXISTS user_group ;
+  DROP TABLE IF EXISTS groups ;
+  DROP TABLE IF EXISTS users ;
+
+
   CREATE TABLE "users"
   (
       "uid"          SERIAL PRIMARY KEY,
